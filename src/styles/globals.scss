@@ -1,0 +1,65 @@
+@import 'variables';
+@import 'buttons';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: $font-family;
+  color: $text-color;
+  background-color: $background-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 暗色模式
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --text-color: #e5e5e5;
+    --border-color: #333;
+    --hover-color: #2a2a2a;
+  }
+
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 3px;
+
+  &:hover {
+    background: #666;
+  }
+}
+
+// 通用样式
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.gap-4 {
+  gap: 16px;
+}

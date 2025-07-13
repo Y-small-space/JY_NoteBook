@@ -1,0 +1,96 @@
+@import '../../styles/variables';
+
+.note-list {
+  width: $sidebar-width;
+  height: 100%;
+  border-right: 1px solid $border-color;
+  background-color: $background-color;
+
+  &-header {
+    height: $header-height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid $border-color;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: $border-radius;
+
+      &:hover {
+        background-color: $hover-color;
+      }
+    }
+  }
+
+  &-content {
+    height: calc(100% - #{$header-height});
+    overflow-y: auto;
+  }
+
+  .note-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    &:hover {
+      background-color: $hover-color;
+    }
+
+    &.active {
+      background-color: $hover-color;
+    }
+
+    &-content {
+      flex: 1;
+      min-width: 0;
+      padding-right: 10px;
+
+      h3 {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 4px;
+        @include text-ellipsis;
+      }
+
+      p {
+        font-size: 14px;
+        color: $text-color-secondary;
+        @include text-ellipsis;
+      }
+    }
+
+    &-actions {
+      opacity: 0;
+      transition: opacity 0.2s;
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: $border-radius;
+
+        &:hover {
+          background-color: rgba($text-color, 0.1);
+        }
+      }
+    }
+
+    &:hover .note-item-actions {
+      opacity: 1;
+    }
+  }
+}

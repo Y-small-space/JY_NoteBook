@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+
+.editor {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: $background-color;
+
+  &-empty {
+    height: 100%;
+    @include flex-center;
+    color: $text-color-secondary;
+    font-size: 16px;
+  }
+
+  :global {
+    .w-md-editor {
+      height: 100% !important;
+      background-color: $background-color;
+    }
+
+    .w-md-editor-toolbar {
+      border-bottom: 1px solid $border-color;
+      background-color: $background-color;
+    }
+
+    .w-md-editor-text {
+      font-family: $font-family;
+    }
+
+    .w-md-editor-preview {
+      box-shadow: inset 1px 0 0 0 $border-color;
+    }
+
+    // 暗色模式适配
+    @media (prefers-color-scheme: dark) {
+      .w-md-editor {
+        background-color: var(--background-color);
+      }
+
+      .w-md-editor-toolbar {
+        background-color: var(--background-color);
+        border-color: var(--border-color);
+      }
+
+      .w-md-editor-preview {
+        box-shadow: inset 1px 0 0 0 var(--border-color);
+      }
+    }
+  }
+}
