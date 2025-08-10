@@ -1,25 +1,34 @@
-import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
-import '../styles/globals.scss';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import { ConfigProvider } from 'antd';
+import theme from '@/styles/theme';
+import '@/styles/globals.scss';
 
 const geist = Geist({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-geist',
 });
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'JY Notebook - Markdown 笔记本',
   description: '一个简洁的 Markdown 笔记应用',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="zh-CN">
-      <body className={geist.variable}>{children}</body>
+      <body className={geist.className}>
+        <AntdRegistry>
+          <ConfigProvider theme={theme}>
+            {children}
+          </ConfigProvider>
+        </AntdRegistry>
+      </body>
     </html>
   );
 }

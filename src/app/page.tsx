@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace('/notes');
+    router.push('/notes');
   }, [router]);
 
   return null;

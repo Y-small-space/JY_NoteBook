@@ -1,60 +1,80 @@
 'use client';
 
-import { Editor } from '@/components/Editor';
-import { useNoteStore } from '@/lib/store/noteStore';
-import { ArrowLeft, Save } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import '../../page.scss';
+import { useRouter } from 'next/navigation';
+import { Layout, Input, Button, Space } from 'antd';
+import { ArrowLeftOutlined, SaveOutlined } from '@ant-design/icons';
+import dynamic from 'next/dynamic';
+import { useNoteStore } from '@/lib/store/noteStore';
+import styles from './page.module.scss';
+
+const { Content } = Layout;
+
+const MDEditor = dynamic(
+  () => import('@uiw/react-md-editor').then((mod) => mod.default),
+  { ssr: false }
+);
 
 export default function NewNotePage() {
   const router = useRouter();
   const { addNote } = useNoteStore();
   const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-  const handleBack = () => {
-    router.push('/notes');
-  };
+  const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleSave = () => {
     if (!title.trim()) {
-      alert('请输入笔记标题');
       return;
     }
 
     addNote({
       title: title.trim(),
-      content: '',
+      content: content || '',
     });
 
     router.push('/notes');
   };
 
   return (
-    <div className="notes-page">
-      <div className="notes-page-header">
-        <div className="flex items-center gap-4">
-          <button onClick={handleBack} className="icon-button" title="返回">
-            <ArrowLeft size={20} />
-          </button>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="请输入笔记标题"
-            className="title-input"
-          />
-        </div>
-        <div className="actions">
-          <button onClick={handleSave} className="primary-button" title="保存">
-            <Save size={20} />
-            保存
-          </button>
-        </div>
-      </div>
-      <div className="notes-page-content">
-        <Editor />
-      </div>
-    </div>
+    <Layout className={styles.layout}>
+      <Content className={styles.content}>
+        <form onSubmit={handleSave}>
+          <div className={styles.header}>
+            <Space>
+              <Button
+                icon={<ArrowLeftOutlined />}
+                onClick={() => router.push('/notes')}
+              >
+                返回
+              </Button>
+              <Button
+                type="primary"
+                icon={<SaveOutlined />}
+                htmlType="submit"
+              >
+                保存
+              </Button>
+            </Space>
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className={styles.titleInput}
+              placeholder="请输入标题"
+              size="large"
+              required
+            />
+          </div>
+          <div className={styles.editor}>
+            <MDEditor
+              value={content}
+              onChange={(value) => setContent(value || '')}
+              height={600}
+              preview="live"
+            />
+          </div>
+        </form>
+      </Content>
+    </Layout>
   );
 }
