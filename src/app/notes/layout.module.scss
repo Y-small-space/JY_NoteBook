@@ -9,6 +9,7 @@
   bottom: 0;
   overflow: auto;
   border-right: 1px solid var(--color-border);
+  height: 100vh;
 
   :global(.ant-layout-sider-children) {
     display: flex;
@@ -17,15 +18,17 @@
 }
 
 .logo {
-  height: 64px;
-  padding: 16px;
+  // height: 64px;
+  // padding: 16px;
   font-size: 18px;
   font-weight: bold;
   color: var(--color-text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid var(--color-border);
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // border-bottom: 1px solid var(--color-border);
+  float: left;
+  margin-right: 10px;
 }
 
 .content {
