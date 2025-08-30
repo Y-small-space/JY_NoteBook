@@ -2,38 +2,35 @@
   min-height: 100vh;
 }
 
-.sider {
-  position: fixed;
-  left: 0;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  height: 64px;
+  position: sticky;
   top: 0;
-  bottom: 0;
-  overflow: auto;
-  border-right: 1px solid var(--color-border);
-  height: 100vh;
-
-  :global(.ant-layout-sider-children) {
-    display: flex;
-    flex-direction: column;
-  }
+  z-index: 10;
+  box-shadow: var(--shadow-sm);
 }
 
 .logo {
-  // height: 64px;
-  // padding: 16px;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: var(--color-text);
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // border-bottom: 1px solid var(--color-border);
-  float: left;
-  margin-right: 10px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .content {
-  margin-left: 200px;
-  min-height: 100vh;
-  background: var(--color-bg-secondary);
   padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }

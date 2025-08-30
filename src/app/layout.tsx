@@ -1,6 +1,7 @@
-import { Geist } from 'next/font/google';
+import { Geist, Geist_Mono } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
+import { ThemeProvider } from '@/contexts/ThemeContext';
 import theme from '@/styles/theme';
 import '@/styles/globals.scss';
 
@@ -8,6 +9,12 @@ const geist = Geist({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-geist',
+});
+
+const geistMono = Geist_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-geist-mono',
 });
 
 export const metadata = {
@@ -21,12 +28,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN">
-      <body className={geist.className}>
+    <html lang="zh-CN" suppressHydrationWarning>
+      <body className={`${geist.variable} ${geistMono.variable}`}>
         <AntdRegistry>
-          <ConfigProvider theme={theme}>
-            {children}
-          </ConfigProvider>
+          <ThemeProvider>
+            <ConfigProvider theme={theme}>
+              {children}
+            </ConfigProvider>
+          </ThemeProvider>
         </AntdRegistry>
       </body>
     </html>

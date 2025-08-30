@@ -1,0 +1,72 @@
+/* 基于 highlight.js 的 Tokyo Night Dark 主题，优化变量可见度 */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
+  background: #1a1b26;
+  color: #9aa5ce;
+  font-family: var(--font-mono);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #565f89;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #bb9af7;
+}
+
+.hljs-function {
+  color: #7aa2f7;
+}
+
+.hljs-subst {
+  color: #9aa5ce;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #9ece6a;
+}
+
+.hljs-variable,
+.hljs-params {
+  color: #e0af68; /* 变量名使用明亮的橙色，提高可见度 */
+}
+
+.hljs-number,
+.hljs-meta,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-class .hljs-title {
+  color: #ff9e64;
+}
+
+.hljs-regexp,
+.hljs-deletion {
+  color: #f7768e;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
