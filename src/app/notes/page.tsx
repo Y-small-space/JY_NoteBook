@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
 import ReactMarkdown from "react-markdown";
 import { useTheme } from '@/contexts/ThemeContext';
 import styles from './page.module.scss';
