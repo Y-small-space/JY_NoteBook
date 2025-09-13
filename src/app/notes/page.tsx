@@ -39,9 +39,9 @@ export default function NotesPage() {
     document.head.appendChild(style);
   }, [theme]);
 
-  const getNoteBookData = async (tpic) => {
+  const getNoteBookData = async (tpic: any) => {
     setLoading(true);
-    const res = await getNoteBook(tpic);
+    const res: any = await getNoteBook(tpic);
     setNotes(res);
     setLoading(false);
   };
@@ -52,6 +52,7 @@ export default function NotesPage() {
       router.push("/notes?is=html")
     }
     setHeadings([])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tpic]);
 
   // 点击导航项滚动到对应位置
@@ -107,8 +108,8 @@ export default function NotesPage() {
                     const id = props.id as string;
                     const text = Array.isArray(children) ? String(children[0]) : null;
 
-                    setHeadings((prev) => {
-                      if (!prev.find((h) => h.id === id)) {
+                    setHeadings((prev: any) => {
+                      if (!prev.find((h: any) => h.id === id)) {
                         return [...prev, { id, text }];
                       }
                       return prev;

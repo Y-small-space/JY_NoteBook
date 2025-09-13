@@ -4,6 +4,7 @@ import { ConfigProvider } from 'antd';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import theme from '@/styles/theme';
 import '@/styles/globals.scss';
+import { Suspense } from 'react';
 
 const geist = Geist({
   subsets: ['latin'],
@@ -33,7 +34,9 @@ export default function RootLayout({
         <AntdRegistry>
           <ThemeProvider>
             <ConfigProvider theme={theme}>
-              {children}
+              <Suspense>
+                {children}
+              </Suspense>
             </ConfigProvider>
           </ThemeProvider>
         </AntdRegistry>

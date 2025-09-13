@@ -3,8 +3,8 @@ import { Octokit } from '@octokit/rest';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
-export async function getNoteBook(path) {
-  const pathMap = {
+export async function getNoteBook(path: any) {
+  const pathMap: any = {
     html: 'Resource/html.md',
     js: 'Resource/JS总结.md',
     ts: 'Resource/typeScript.md',
