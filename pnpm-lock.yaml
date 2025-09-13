@@ -44,9 +44,15 @@ dependencies:
   react-markdown:
     specifier: ^10.1.0
     version: 10.1.0(@types/react@19.1.10)(react@19.1.1)
+  rehype-autolink-headings:
+    specifier: ^7.1.0
+    version: 7.1.0
   rehype-highlight:
     specifier: ^7.0.2
     version: 7.0.2
+  rehype-slug:
+    specifier: ^6.0.0
+    version: 6.0.0
   remark-gfm:
     specifier: ^4.0.1
     version: 4.0.1

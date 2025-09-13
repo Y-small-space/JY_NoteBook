@@ -1,21 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Spin } from 'antd';
+import { Button, Spin } from 'antd';
 import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
-import remarkSlug from 'remark-slug';
-import rehypeHighlight from 'rehype-highlight';
 import { useTheme } from '@/contexts/ThemeContext';
 import styles from './page.module.scss';
-import '@/styles/markdown.scss'; // 引入自定义Markdown样式
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeHighlight from 'rehype-highlight';
 import { getNoteBook } from '@/services/githubService';
+import '@/styles/markdown.scss'; // 引入自定义Markdown样式
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export default function NotesPage() {
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState<string>();
   const [headings, setHeadings] = useState<{ id: string; text: string }[]>([]);
   const { theme } = useTheme();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const tpic = searchParams.get("is");
 
   // 根据主题动态加载代码高亮样式
   useEffect(() => {
@@ -33,16 +39,20 @@ export default function NotesPage() {
     document.head.appendChild(style);
   }, [theme]);
 
-  const getNoteBookData = async () => {
+  const getNoteBookData = async (tpic) => {
     setLoading(true);
-    const res = await getNoteBook();
+    const res = await getNoteBook(tpic);
     setNotes(res);
     setLoading(false);
   };
 
   useEffect(() => {
-    getNoteBookData();
-  }, []);
+    getNoteBookData(tpic);
+    if (!tpic) {
+      router.push("/notes?is=html")
+    }
+    setHeadings([])
+  }, [tpic]);
 
   // 点击导航项滚动到对应位置
   const scrollToHeading = (id: string) => {
@@ -86,15 +96,17 @@ export default function NotesPage() {
           <div className={styles.mainContent}>
             <div className="markdown-content">
               <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkSlug]}
-                rehypePlugins={[rehypeHighlight]}
-                // 自定义组件拦截 h2，收集目录
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[
+                  rehypeHighlight,
+                  rehypeSlug,
+                  [rehypeAutolinkHeadings, { behavior: 'append' }],
+                ]}
                 components={{
                   h2({ node, children, ...props }) {
                     const id = props.id as string;
-                    const text = String(children);
+                    const text = Array.isArray(children) ? String(children[0]) : null;
 
-                    // 避免重复添加
                     setHeadings((prev) => {
                       if (!prev.find((h) => h.id === id)) {
                         return [...prev, { id, text }];
