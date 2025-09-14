@@ -3,6 +3,9 @@ import { Octokit } from '@octokit/rest';
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
+
+console.log('process.env.GITHUB_TOKEN', process.env.GITHUB_TOKEN);
+
 export async function getNoteBook(path: any) {
   const pathMap: any = {
     html: 'Resource/html.md',
@@ -16,6 +19,10 @@ export async function getNoteBook(path: any) {
     net: 'Resource/计算机网络总结.md'
   }
   const pathT = String(pathMap[path]);
+
+  if (!process.env.GITHUB_TOKEN) {
+    throw new Error('GITHUB_TOKEN is NotFount');
+  }
 
   try {
     const response: any = await octokit.request('GET /repos/{owner}/{repo}/contents/{path}', {
