@@ -1,10 +1,9 @@
+"use client"
+
 import { NextResponse } from 'next/server';
 import { Octokit } from '@octokit/rest';
 
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
-
-
-console.log('process.env.GITHUB_TOKEN', process.env.GITHUB_TOKEN);
+const octokit = new Octokit({ auth: process.env.NEXT_PUBLIC_GITHUB_TOKEN });
 
 export async function getNoteBook(path: any) {
   const pathMap: any = {
@@ -20,7 +19,7 @@ export async function getNoteBook(path: any) {
   }
   const pathT = String(pathMap[path]);
 
-  if (!process.env.GITHUB_TOKEN) {
+  if (!process.env.NEXT_PUBLIC_GITHUB_TOKEN) {
     throw new Error('GITHUB_TOKEN is NotFount');
   }
 
